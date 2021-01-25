@@ -41,12 +41,13 @@
             android:textColorHint="@color/red_light">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etGameName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#00FFFFFF"
                 android:backgroundTint="@color/red_light"
                 android:hint="Name"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:paddingTop="35dp"
                 android:paddingBottom="0dp"
                 android:textColor="@color/black" />
@@ -60,6 +61,7 @@
             android:textColorHint="@color/red_light">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etGameDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#00FFFFFF"
@@ -79,12 +81,13 @@
             android:textColorHint="@color/red_light">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="#00FFFFFF"
                 android:backgroundTint="@color/red_light"
                 android:hint="Description"
-                android:inputType="textPassword"
+                android:inputType="text"
                 android:paddingTop="35dp"
                 android:paddingBottom="0dp"
                 android:textColor="@color/black" />
@@ -92,7 +95,7 @@
 
 
         <Button
-            android:id="@+id/btn_login"
+            android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -103,6 +106,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btnImg"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="360dp"
@@ -114,7 +118,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/ivCapa"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
