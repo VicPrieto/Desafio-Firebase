@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">DesafioFirebase</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tvplaceholder">"Mortal Kombat é uma série de jogos criados pelo estúdio de Chicago da Midway Games. Em 2011, depois da falência da Midway, a produção de Mortal Kombat foi adquirida pela Warner Bros, tornando-se em seguida na Netherealm. A Warner detém actualmente os direitos da série.  A produção do primeiro jogo foi baseada na ideia original que Ed Boon e John Tobias tinham em fazer um jogo em que participasse Jean-Claude Van Damme,[2] mas a ideia foi deixada de parte, e em vez disso foi criado Mortal Kombat, um jogo de luta com temas de fantasia e ciência, lançado em Outubro de 1992.[3] O jogo original, gerou muitas sequelas, vários jogos de acção-aventura, filmes (animados e live-action com a sua sequela) e séries de televisão (animadas e live-action). Outra média inclui banda desenhada, jogo de cartas e a Mortal Kombat: Live Tour, um teatro de artes marciais com personagens da série. "</string>
+</resources>
