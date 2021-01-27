@@ -7,7 +7,7 @@
     tools:context=".DetailFragment">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/ivThumb"
         android:layout_width="wrap_content"
         android:layout_height="232dp"
         android:src="@drawable/mortalkombat"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/tbDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -26,10 +26,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/transparent"
         app:navigationIcon="@drawable/ic_arrow_back" />
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvTitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -38,7 +39,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/ivThumb" />
 
     <TextView
         android:id="@+id/tvLancamento"
@@ -49,10 +50,10 @@
         android:text="Lançamento: 2018"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle2" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -60,11 +61,11 @@
         android:textColor="@color/white"
         android:textSize="22sp"
         android:text="Mortal Kombat X"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintBottom_toBottomOf="@+id/ivThumb"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -19,7 +20,6 @@ class RegisterGameFragment : Fragment() {
     private val CODE_IMG: Int = 100
     private lateinit var storageReference: StorageReference
     private var game: Game = Game()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +46,10 @@ class RegisterGameFragment : Fragment() {
             } else {
                 salvarDados()
             }
+        }
+
+        tbRegisterGame.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
 
     }
@@ -95,5 +99,4 @@ class RegisterGameFragment : Fragment() {
         game.id = id
         bancoDados.document(id).set(game)
     }
-
 }

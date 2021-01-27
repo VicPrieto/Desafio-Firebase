@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -16,6 +17,13 @@ class RegisterActivity : AppCompatActivity() {
             val intent = Intent(this, HomeActivity::class.java)
 
             registerUser()
+
+            startActivity(intent)
+            finish()
+        }
+
+        tbRegister.setNavigationOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
 
             startActivity(intent)
             finish()

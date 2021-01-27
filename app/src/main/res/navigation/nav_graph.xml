@@ -21,7 +21,14 @@
         android:id="@+id/detailFragment"
         android:name="com.digitalhouse.desafiofirebase.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="game"
+            app:argType="com.digitalhouse.desafiofirebase.Game" />
+        <action
+            android:id="@+id/action_detailFragment_to_registerGameFragment"
+            app:destination="@id/registerGameFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerGameFragment"
         android:name="com.digitalhouse.desafiofirebase.RegisterGameFragment"

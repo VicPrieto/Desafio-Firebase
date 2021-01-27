@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class ItemAdapter (val listaGames: ArrayList<Game>, val listener: OnItemClickListener) :
+class ItemAdapter (var listaGames: ArrayList<Game>, val listener: OnItemClickListener) :
 RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
