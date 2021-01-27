@@ -10,23 +10,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.digitalhouse.desafiofirebase.databinding.FragmentDetailBinding
+import com.digitalhouse.desafiofirebase.databinding.FragmentRegisterGameBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_register_game.*
 
-class RegisterGameFragment : Fragment() {
+class UpdateGameFragment : Fragment() {
     private val CODE_IMG: Int = 100
     private lateinit var storageReference: StorageReference
     private var game: Game = Game()
+
+    lateinit var binding: FragmentRegisterGameBinding
+    private val args: UpdateGameFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register_game, container, false)
+        binding = FragmentRegisterGameBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,6 +53,12 @@ class RegisterGameFragment : Fragment() {
                 salvarDados()
             }
         }
+
+        Picasso.get().load(args.updateGame.img).fit().centerCrop().into(binding.ivCapa)
+
+        binding.etGameName.setText(args.updateGame.name)
+        binding.etGameDate.setText(args.updateGame.year)
+        binding.etDescription.setText(args.updateGame.description)
 
         tbRegisterGame.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -100,4 +112,8 @@ class RegisterGameFragment : Fragment() {
         bancoDados.document(id).set(game)
     }
 
+    fun updateDados(gameUpdate: Game) {
+        val bancoDados = FirebaseFirestore.getInstance().collection("InfoGame")
+        bancoDados.document(gameUpdate.id).set(game)
+    }
 }

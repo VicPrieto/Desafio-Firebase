@@ -26,12 +26,21 @@
             android:name="game"
             app:argType="com.digitalhouse.desafiofirebase.Game" />
         <action
-            android:id="@+id/action_detailFragment_to_registerGameFragment"
-            app:destination="@id/registerGameFragment" />
+            android:id="@+id/action_detailFragment_to_updateGameFragment"
+            app:destination="@id/updateGameFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerGameFragment"
         android:name="com.digitalhouse.desafiofirebase.RegisterGameFragment"
         android:label="fragment_register_game"
         tools:layout="@layout/fragment_register_game" />
+    <fragment
+        android:id="@+id/updateGameFragment"
+        android:name="com.digitalhouse.desafiofirebase.UpdateGameFragment"
+        android:label="UpdateGameFragment"
+        tools:layout="@layout/fragment_register_game">
+        <argument
+            android:name="updateGame"
+            app:argType="com.digitalhouse.desafiofirebase.Game" />
+    </fragment>
 </navigation>

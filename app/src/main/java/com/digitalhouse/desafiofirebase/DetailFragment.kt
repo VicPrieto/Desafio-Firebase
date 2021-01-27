@@ -37,8 +37,7 @@ class DetailFragment : Fragment() {
         }
 
         binding.fbEdit.setOnClickListener {
-            findNavController().navigate(R.id.action_detailFragment_to_registerGameFragment)
-
+            findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToUpdateGameFragment(args.game))
         }
 
     }

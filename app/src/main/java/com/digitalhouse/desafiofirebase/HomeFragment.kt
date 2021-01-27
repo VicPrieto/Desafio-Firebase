@@ -54,7 +54,7 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
 
     override fun onClick(position: Int) {
         val clickedItem = gameList.value?.get(position)
-//        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(clickedItem))
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(clickedItem!!))
     }
 
     fun getGames() {
@@ -66,7 +66,6 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
                 listaGamesLocal.add(doc.toObject())
             }
             gameList.postValue(listaGamesLocal)
-//            Log.i("TESTE", "getGames ${gameList.value?.get(0)} ")
         }
     }
 
