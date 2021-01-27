@@ -50,7 +50,7 @@ class UpdateGameFragment : Fragment() {
             if (game.img == "") {
                 Toast.makeText(context, "Adicione uma imagem antes de salvar!", Toast.LENGTH_SHORT).show()
             } else {
-                salvarDados()
+                updateDados(game)
             }
         }
 
@@ -104,13 +104,6 @@ class UpdateGameFragment : Fragment() {
     }
 
     private fun getUniqueKey() = FirebaseFirestore.getInstance().collection("pegando chave").document().id
-
-    fun salvarDados() {
-        val bancoDados = FirebaseFirestore.getInstance().collection("InfoGame")
-        val id = getUniqueKey()
-        game.id = id
-        bancoDados.document(id).set(game)
-    }
 
     fun updateDados(gameUpdate: Game) {
         val bancoDados = FirebaseFirestore.getInstance().collection("InfoGame")
