@@ -4,11 +4,11 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -25,7 +25,6 @@ class RegisterGameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_register_game, container, false)
     }
 
@@ -33,7 +32,7 @@ class RegisterGameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnImg.setOnClickListener {
-            carregarImagem()
+            loadImage()
         }
 
         btnSave.setOnClickListener {
@@ -42,9 +41,10 @@ class RegisterGameFragment : Fragment() {
             game.description = etDescription.text.toString()
 
             if (game.img == "") {
-                Toast.makeText(context, "Adicione uma imagem antes de salvar!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Você esqueceu de carregar uma imagem", Toast.LENGTH_SHORT)
+                    .show()
             } else {
-                salvarDados()
+                saveData()
             }
         }
 
@@ -62,7 +62,7 @@ class RegisterGameFragment : Fragment() {
             val uploadFile = storageReference.putFile(data!!.data!!)
             uploadFile.continueWithTask { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(context, "Imagem Carrregada com sucesso!", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Imagem carregada :)", Toast.LENGTH_SHORT)
                         .show()
                 }
                 storageReference!!.downloadUrl
@@ -72,7 +72,6 @@ class RegisterGameFragment : Fragment() {
                     val url = downloadUri!!.toString()
                         .substring(0, downloadUri.toString().indexOf("&token"))
 
-                    Log.i("URL da Imagem", url)
                     game.img = url
 
                     Picasso.get().load(url).into(ivCapa)
@@ -83,7 +82,7 @@ class RegisterGameFragment : Fragment() {
         }
     }
 
-    fun carregarImagem() {
+    fun loadImage() {
         storageReference = FirebaseStorage.getInstance().getReference(getUniqueKey())
         val intent = Intent()
         intent.type = "image/"
@@ -91,13 +90,14 @@ class RegisterGameFragment : Fragment() {
         startActivityForResult(Intent.createChooser(intent, "Get Image"), CODE_IMG)
     }
 
-    private fun getUniqueKey() = FirebaseFirestore.getInstance().collection("pegando chave").document().id
+    private fun getUniqueKey() =
+        FirebaseFirestore.getInstance().collection("pegando chave").document().id
 
-    fun salvarDados() {
-        val bancoDados = FirebaseFirestore.getInstance().collection("InfoGame")
+    fun saveData() {
+        val bd = FirebaseFirestore.getInstance().collection("InfoGame")
         val id = getUniqueKey()
         game.id = id
-        bancoDados.document(id).set(game)
+        bd.document(id).set(game)
     }
 
 }

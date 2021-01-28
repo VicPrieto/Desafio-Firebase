@@ -29,7 +29,6 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         getGames()
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
@@ -40,11 +39,10 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
         gridLayoutManager = GridLayoutManager(context, 2)
         rvGames.layoutManager = gridLayoutManager
         rvGames.hasFixedSize()
-//        itemAdapter.listaGames = gameList
+
         gameList.observe(viewLifecycleOwner, {
             itemAdapter = ItemAdapter(it, this)
             rvGames.adapter = itemAdapter
-            Log.i("TESTE", "$it")
         })
 
         addNewGame.setOnClickListener {
@@ -58,14 +56,14 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
     }
 
     fun getGames() {
-        val bancoDados = Firebase.firestore.collection("InfoGame")
-        val listaGamesLocal = ArrayList<Game>()
+        val bd = Firebase.firestore.collection("InfoGame")
+        val localGameList = ArrayList<Game>()
         scope.launch {
-            val listaGamesRemoto = bancoDados.get().await()
-            listaGamesRemoto.forEach { doc ->
-                listaGamesLocal.add(doc.toObject())
+            val remoteGameList = bd.get().await()
+            remoteGameList.forEach { doc ->
+                localGameList.add(doc.toObject())
             }
-            gameList.postValue(listaGamesLocal)
+            gameList.postValue(localGameList)
         }
     }
 

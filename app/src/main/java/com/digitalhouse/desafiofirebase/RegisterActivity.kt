@@ -1,10 +1,9 @@
 package com.digitalhouse.desafiofirebase
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -33,39 +32,38 @@ class RegisterActivity : AppCompatActivity() {
     private fun registerUser() {
         val user = getUser()
         if (user != null) {
-            sendFirebaseCad(user)
-        }
-        else {
-            sendMsg("Preencha o campo email e senha corretamente!")
+            firebaseReg(user)
+        } else {
+            sendMsg("Por favor, preencha os campos")
         }
 
     }
 
-    private fun sendFirebaseCad(user: User) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.email,user.password)
+    private fun firebaseReg(user: User) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.email, user.password)
             .addOnCompleteListener {
-                if(it.isSuccessful){
+                if (it.isSuccessful) {
                     val firebaseUser = it.result?.user!!
-                    val userFire = User(firebaseUser.email.toString(),"",firebaseUser.uid)
-                    sendMsg("Usuario cadastrado!")
+                    val userFirebase = User(firebaseUser.email.toString(), "", firebaseUser.uid)
+                    sendMsg("Cadastro realizado :)")
                 }
 
             }.addOnFailureListener {
-                sendMsg("$it, deu erro :c")
+                sendMsg("Não foi possível fazer o seu cadastro :(")
             }
     }
 
-    private fun sendMsg(msg : String) {
+    private fun sendMsg(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT)
             .show()
     }
 
     private fun getUser(): User? {
-        var nome = etName.text.toString()
+        var name = etName.text.toString()
         var email = etEmail.text.toString()
-        var senha = etPassword.text.toString()
-        return if (!email.isNullOrEmpty() and !senha.isNullOrEmpty())
-            User(nome, email, senha)
+        var password = etPassword.text.toString()
+        return if (!email.isNullOrEmpty() and !password.isNullOrEmpty())
+            User(name, email, password)
         else
             null
     }

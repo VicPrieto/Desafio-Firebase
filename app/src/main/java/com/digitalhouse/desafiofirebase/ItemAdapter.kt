@@ -3,14 +3,13 @@ package com.digitalhouse.desafiofirebase
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class ItemAdapter (var listaGames: ArrayList<Game>, val listener: OnItemClickListener) :
-RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(var listaGames: ArrayList<Game>, val listener: OnItemClickListener) :
+    RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
@@ -36,15 +35,15 @@ RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_game, parent, false)
         return ItemViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemAdapter.ItemViewHolder, position: Int) {
         val game = listaGames[position]
         holder.tvTitle.text = game.name
-        holder.tvYear.text = game.year.toString()
+        holder.tvYear.text = game.year
         Picasso.get().load(game.img).fit().centerCrop().into(holder.ivThumbnail)
     }
 

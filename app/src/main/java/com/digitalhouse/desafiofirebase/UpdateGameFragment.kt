@@ -4,14 +4,13 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.digitalhouse.desafiofirebase.databinding.FragmentDetailBinding
 import com.digitalhouse.desafiofirebase.databinding.FragmentRegisterGameBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -38,27 +37,28 @@ class UpdateGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnImg.setOnClickListener {
-            carregarImagem()
-        }
-
-        btnSave.setOnClickListener {
-            game.name = etGameName.text.toString()
-            game.year = etGameDate.text.toString()
-            game.description = etDescription.text.toString()
-
-            if (game.img == "") {
-                Toast.makeText(context, "Adicione uma imagem antes de salvar!", Toast.LENGTH_SHORT).show()
-            } else {
-                updateDados(game)
-            }
-        }
-
         Picasso.get().load(args.updateGame.img).fit().centerCrop().into(binding.ivCapa)
 
         binding.etGameName.setText(args.updateGame.name)
         binding.etGameDate.setText(args.updateGame.year)
         binding.etDescription.setText(args.updateGame.description)
+
+        btnImg.setOnClickListener {
+            loadImage()
+        }
+
+        btnSave.setOnClickListener {
+//            game.name = etGameName.text.toString()
+//            game.year = etGameDate.text.toString()
+//            game.description = etDescription.text.toString()
+
+            if (game != null) {
+                updateData(updatedGame(game))
+            } else {
+                Toast.makeText(context, "Ocorreu algum erro e não foi possível realizar a edição :(", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
 
         tbRegisterGame.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -74,7 +74,7 @@ class UpdateGameFragment : Fragment() {
             val uploadFile = storageReference.putFile(data!!.data!!)
             uploadFile.continueWithTask { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(context, "Imagem Carrregada com sucesso!", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Imagem carregada :)", Toast.LENGTH_SHORT)
                         .show()
                 }
                 storageReference!!.downloadUrl
@@ -84,7 +84,6 @@ class UpdateGameFragment : Fragment() {
                     val url = downloadUri!!.toString()
                         .substring(0, downloadUri.toString().indexOf("&token"))
 
-                    Log.i("URL da Imagem", url)
                     game.img = url
 
                     Picasso.get().load(url).into(ivCapa)
@@ -95,7 +94,7 @@ class UpdateGameFragment : Fragment() {
         }
     }
 
-    fun carregarImagem() {
+    fun loadImage() {
         storageReference = FirebaseStorage.getInstance().getReference(getUniqueKey())
         val intent = Intent()
         intent.type = "image/"
@@ -103,10 +102,19 @@ class UpdateGameFragment : Fragment() {
         startActivityForResult(Intent.createChooser(intent, "Get Image"), CODE_IMG)
     }
 
-    private fun getUniqueKey() = FirebaseFirestore.getInstance().collection("pegando chave").document().id
+    private fun getUniqueKey() =
+        FirebaseFirestore.getInstance().collection("pegando chave").document().id
 
-    fun updateDados(gameUpdate: Game) {
-        val bancoDados = FirebaseFirestore.getInstance().collection("InfoGame")
-        bancoDados.document(gameUpdate.id).set(game)
+    fun updatedGame(game: Game): Game {
+        val name = binding.etGameName.text.toString()
+        val year = binding.etGameDate.text.toString()
+        val description = binding.etDescription.text.toString()
+
+        return Game(name, year, description, game.img, game.id)
+    }
+
+    fun updateData(gameUpdate: Game) {
+        val bd = FirebaseFirestore.getInstance().collection("InfoGame")
+        bd.document(gameUpdate.id).set(game)
     }
 }

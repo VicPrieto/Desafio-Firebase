@@ -1,9 +1,9 @@
 package com.digitalhouse.desafiofirebase
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -21,19 +21,19 @@ class LoginActivity : AppCompatActivity() {
         btn_login.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
 
-            realizarLogin()
+            login()
 
             startActivity(intent)
             finish()
         }
     }
 
-    private fun realizarLogin() {
-        val usuario = getUsuario()
-        if (usuario != null) {
-            sendFirebaseLogin(usuario)
+    private fun login() {
+        val user = getUser()
+        if (user != null) {
+            firebaseLogin(user)
         } else {
-            sendMsg("Preencha o campo email e senha corretamente!")
+            sendMsg("Por favor, preencha os campos")
         }
     }
 
@@ -42,22 +42,22 @@ class LoginActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun sendFirebaseLogin(usuario: User) {
+    private fun firebaseLogin(usuario: User) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(usuario.email, usuario.password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     val firebaseUser = it.result?.user!!
-                    val userFire = User(firebaseUser.email.toString(), "", firebaseUser.uid)
-                    sendMsg("Login realizado com sucesso!")
+                    val userFirebase = User(firebaseUser.email.toString(), "", firebaseUser.uid)
+                    sendMsg("Login realizado :)")
                 }
             }
     }
 
-    private fun getUsuario(): User? {
+    private fun getUser(): User? {
         var email = etEmailLogin.text.toString()
-        var senha = etPasswordLogin.text.toString()
-        return if (!email.isNullOrBlank() and !senha.isNullOrBlank())
-            User("", email, senha)
+        var password = etPasswordLogin.text.toString()
+        return if (!email.isNullOrBlank() and !password.isNullOrBlank())
+            User("", email, password)
         else
             null
     }
