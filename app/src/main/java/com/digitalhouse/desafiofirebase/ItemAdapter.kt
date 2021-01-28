@@ -44,7 +44,7 @@ class ItemAdapter(var listaGames: ArrayList<Game>, val listener: OnItemClickList
         val game = listaGames[position]
         holder.tvTitle.text = game.name
         holder.tvYear.text = game.year
-        Picasso.get().load(game.img).fit().centerCrop().into(holder.ivThumbnail)
+        Picasso.get().load(game.img).into(holder.ivThumbnail)
     }
 
     override fun getItemCount() = listaGames.size

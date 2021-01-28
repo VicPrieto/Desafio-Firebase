@@ -37,6 +37,8 @@ class UpdateGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        game = args.updateGame
+
         Picasso.get().load(args.updateGame.img).fit().centerCrop().into(binding.ivCapa)
 
         binding.etGameName.setText(args.updateGame.name)
@@ -48,9 +50,6 @@ class UpdateGameFragment : Fragment() {
         }
 
         btnSave.setOnClickListener {
-//            game.name = etGameName.text.toString()
-//            game.year = etGameDate.text.toString()
-//            game.description = etDescription.text.toString()
 
             if (game != null) {
                 updateData(updatedGame(game))
@@ -110,11 +109,11 @@ class UpdateGameFragment : Fragment() {
         val year = binding.etGameDate.text.toString()
         val description = binding.etDescription.text.toString()
 
-        return Game(name, year, description, game.img, game.id)
+        return Game(name, description, year, game.img, game.id)
     }
 
     fun updateData(gameUpdate: Game) {
         val bd = FirebaseFirestore.getInstance().collection("InfoGame")
-        bd.document(gameUpdate.id).set(game)
+        bd.document(gameUpdate.id).set(gameUpdate)
     }
 }

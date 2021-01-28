@@ -25,7 +25,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Picasso.get().load(args.game.img).fit().centerCrop().into(binding.ivThumb)
+        Picasso.get().load(args.game.img).into(binding.ivThumb)
 
         binding.tvTitle.text = args.game.name
         binding.tvTitle2.text = args.game.name
